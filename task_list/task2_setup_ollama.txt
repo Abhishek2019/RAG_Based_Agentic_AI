@@ -1,0 +1,8 @@
+1] Install ollama on WSL ( windows substitute for linux)
+
+sudo snap install ollama
+
+2] ollama run / pull llm
+
+ollama run phi3
+ollama pull nomic-embed-text

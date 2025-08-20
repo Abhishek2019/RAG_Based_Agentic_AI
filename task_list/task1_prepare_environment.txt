@@ -16,3 +16,4 @@ source .venv/bin/activate
 
 
 4] Install packages with versions listed in requirement.txt
+pip install -e requirements.txt
