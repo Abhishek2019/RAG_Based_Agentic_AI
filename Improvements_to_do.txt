@@ -1,0 +1,12 @@
+1] Improve resume loader. 
+
+- before chunking and embedding the resume content, segregate, skills, professional summary, professional experience,
+certifications, education etc.
+
+
+2] Shift Milvus lite to Milvus standalone or Milvus Cluster vectorDB on remote server. 
+(in Progress, Oracle Clous Free Tier)
+
+3] Improve the prompt
+
+4] Make ollama framework use Intel UHD graphics ( GPU) -- (OpenNivo)
