@@ -1,6 +1,10 @@
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
+import sys
+sys.path.append("/home/abhi_ubuntu/oracle_cloud/db_service")
+from db_credentials import MILVUS_HOST, MILVUS_PORT
+
 import os, re, glob, json
 import ollama
 from pymilvus import MilvusClient
@@ -49,7 +53,7 @@ def load_docs(folder: str):
     '''
     docs = []
 
-    for path in glob.glob(os.path.join(index,"**","*"),recursive=True):
+    for path in glob.glob(os.path.join(folder,"**","*"),recursive=True):
 
         if not os.path.isfile(path):
 
@@ -128,7 +132,11 @@ def embed_texts(texts: List[str]):
 
 
 
-client = MilvusClient(DB_PATH)
+# client = MilvusClient(DB_PATH)
+
+client = MilvusClient(
+    uri=f"http://{MILVUS_HOST}:{MILVUS_PORT}"
+)
 
 def ensure_collection(dimension: int):
 
@@ -344,7 +352,6 @@ def chat_once(question: str):
         content = getattr(response.message,"content", None)
 
         if content:
-
             content = json.loads(content)
 
             if content["type"] == "function":
@@ -387,7 +394,7 @@ if __name__ == "__main__":
 
     if args.index:
         if COLLECTION not in client.list_collections():
-            print(f"documents alredy exists at location {DB_PATH}")
+            print(f"documents does not exist at location {DB_PATH}")
             index_folder(args.index)
     if args.ask:
         output = chat_once(args.ask)
